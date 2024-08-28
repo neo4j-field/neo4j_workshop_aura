@@ -13,11 +13,7 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 
    **Create**
    
-   `dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions.
-
-   `memory` should be the same as the instance you created above.
-
-   Update other parameters as needed
+   `dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions. `memory` should be the same as the instance you created above. Update `num_instances` based on the requirements and also update other parameters as needed
 
      ```python
      Example:
@@ -41,19 +37,27 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
    ```python
      Example:
     {
+         "dbname_prefix": "neo4j_wkshp", # prefix to use for all the newly created machines
+         "num_instances": 4, # number of instances 
+         "params": {
+           "version": "5",
+           "region": "europe-west1",
+           "memory": "8GB",
+           "type": "enterprise-ds",
+           "cloud_provider": "gcp",
            "source_instance_id": "44683a64", # source instance for clones
-           "source_snapshot_date": "2024-08-13" # update this with today's date or a specific date in the past
+           "source_snapshot_date": "2024-08-13", # update this with today's date or a specific date in the past
+           "source_snapshot_id": ""
+        }
     }
-     ```
-   
+     ```  
    If you know and plan to use a specific snapshot, update `source_snapshot_id` with that snapshot ID.  Otherwise, leave it blank and the latest snapshot will be used.
 
    ```python
      Example:
-       {
-           "source_instance_id": "44683a64", # source instance for clones
+   {
            "source_snapshot_id": "86509b6a-1b56-4a37-a65e-ede480661a67"
-      }
+   }
    ```
 
    **Snapshots**
@@ -91,8 +95,8 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
     - Tenant ID (Eg: "6e748720-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     - Client ID and Client Secret (for Aura API access)
     - Instance ID for the new database (Eg: "44683a64")
-    - Supported tasks: `create`, `pause`, `resume`, `delete`, `status`, `list`, `get_snapshot_id`
-    - Output is written to a csv file when new instances are created. Please save the file and or copy the credentials. The file will be overwritten when you run the code for the second time.
+    - Supported tasks: `create`, `clone`, `pause`, `resume`, `delete`, `status`, `list`, `snapshots`
+    - Output is written to a csv file when new instances are created. **Please save the file and or copy the credentials** The file will be overwritten when you run the code for the second time.
 
 ### Collect the credentials for newly created instances
 **If you are running a workshop, you will want readable passwords for printouts.**
