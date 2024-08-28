@@ -12,23 +12,25 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 4. Modify "config.json" and add required parameters under the respective tasks
 
    - Create
-     `dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions.
-     `memory` should be the same as the instance you created above.
+
+     -- `dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions.
+
+     -- `memory` should be the same as the instance you created above.
       Update other parameters as needed
 
      ```python
      Example:
-    {
-         "dbname_prefix": "neo4j_wkshp", # prefix to use for all the newly created machines
-         "num_instances": 4,
-         "params": {
-           "version": "5",
-           "region": "europe-west1",
-           "memory": "8GB",
-           "type": "enterprise-ds",
-           "cloud_provider": "gcp"
+        {
+             "dbname_prefix": "neo4j_wkshp", # prefix to use for all the newly created machines
+             "num_instances": 4,
+             "params": {
+               "version": "5",
+               "region": "europe-west1",
+               "memory": "8GB",
+               "type": "enterprise-ds",
+               "cloud_provider": "gcp"
+            }
         }
-    }
      ```
 
    - Clone
