@@ -11,28 +11,30 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 ### Configuration parameters
 4. Modify "config.json" and add required parameters under the respective tasks
 
-   - Create
+   **Create**
    
-`dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions. 
+   `dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions.
 
-`memory` should be the same as the instance you created above. Update other parameters as needed
+   `memory` should be the same as the instance you created above.
+
+   Update other parameters as needed
 
      ```python
      Example:
-        {
-             "dbname_prefix": "neo4j_wkshp", # prefix to use for all the newly created machines
-             "num_instances": 4,
-             "params": {
-               "version": "5",
-               "region": "europe-west1",
-               "memory": "8GB",
-               "type": "enterprise-ds",
-               "cloud_provider": "gcp"
-            }
+    {
+         "dbname_prefix": "neo4j_wkshp", # prefix to use for all the newly created machines
+         "num_instances": 4,
+         "params": {
+           "version": "5",
+           "region": "europe-west1",
+           "memory": "8GB",
+           "type": "enterprise-ds",
+           "cloud_provider": "gcp"
         }
+    }
      ```
 
-   - Clone
+    **Clone**
 
    `source_instance_id` and `source_snapshot_date` are required for creating clones from an existing instance. 
 
@@ -52,9 +54,9 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
            "source_instance_id": "44683a64", # source instance for clones
            "source_snapshot_id": "86509b6a-1b56-4a37-a65e-ede480661a67"
       }
-     ```
+   ```
 
-    - Snapshots
+   **Snapshots**
 
     `instance_id`is required for getting a list of snapshots from an existing instance.
      `snapshot_date` is optional.
@@ -67,7 +69,7 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
         }
      ```
 
-   - Status/Pause/Resume/Delete
+   **Status/Pause/Resume/Delete**
 
      Parameters are **not** mutually exclusive.
 
