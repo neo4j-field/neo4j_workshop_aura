@@ -10,6 +10,7 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 
 ### Configuration parameters
 4. Modify "config.json" and add required parameters under the respective tasks
+   - Supported tasks: `create`, `clone`, `pause`, `resume`, `delete`, `status`, `list`, `snapshots`
 
    **Create**
    
@@ -95,7 +96,6 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
     - Tenant ID (Eg: "6e748720-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     - Client ID and Client Secret (for Aura API access)
     - Instance ID for the new database (Eg: "44683a64")
-    - Supported tasks: `create`, `clone`, `pause`, `resume`, `delete`, `status`, `list`, `snapshots`
     - Output is written to a csv file when new instances are created. **Please save the file and or copy the credentials** The file will be overwritten when you run the code for the second time.
 
 ### Collect the credentials for newly created instances
