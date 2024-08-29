@@ -2,8 +2,10 @@
 Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Introduction, Data modeling, GDS and GenAI)
 
 1. Sign into Neo4j Aura Console (https://console.neo4j.io)
-2. Create an Aura DB (or AuraDS) instance (eg: 2CPU/8GB) and import/restore the database from the dump file
-3. Once the instance is up and running, collect the following details
+2. Create an Aura instance (eg: 2CPU/8GB) and import/restore the database from the dump file
+    - AuraDS instances for For GDS and GenAI workshops
+    - Aura DB instances for Intro to Neo4j and data modeling workshops
+4. Once the instance is up and running, collect the following details
     - Tenant ID (Eg: "6e748720-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     - Client ID and Client Secret (for Aura API access)
     - Instance ID for the new database (Eg: "44683a64")
