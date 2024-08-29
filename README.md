@@ -101,7 +101,9 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
     - Tenant ID (Eg: "6e748720-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     - Client ID and Client Secret (for Aura API access)
     - Instance ID for the new database (Eg: "44683a64")
-    - Output is written to a csv file when new instances are created. **Please save the file and or copy the credentials** The file will be overwritten when you run the code for the second time.
+
+    - When new instances are created or cloned, the credentials are written to the output CSV file.  Output is written to "instances.csv" file by default if `/path_to_folder/csvfile.csv` is not specified.
+    - **Please save the file and or copy the credentials** The file will be overwritten when you run the code for the second time.
 
 ### Collect the credentials for newly created/cloned instances
 **If you are running a workshop, you will want readable passwords for printouts.**
