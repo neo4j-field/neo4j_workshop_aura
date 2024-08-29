@@ -16,7 +16,8 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 
    **Create**
    
-   `dbname_prefix` is used to refer to the instances created for this workshop. It is used as reference for pause/delete and resume functions. `memory` should be the same as the instance you created above. Update `num_instances` based on the requirements and also update other parameters as needed
+   `dbname_prefix` is used to refer to the instances created for this workshop. It is also used as reference for other tasks - status, pause, delete and resume.
+   Update `num_instances` based on the requirements and also update other parameters as needed
 
      ```python
      Example:
@@ -35,7 +36,9 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 
     **Clone**
 
-   `source_instance_id` and `source_snapshot_date` are required for creating clones from an existing instance. 
+   `dbname_prefix` is used to refer to the cloned instances created for this workshop.
+   `source_instance_id` and `source_snapshot_date` are required for creating clones from an existing instance.
+   Keep the `memory` same as the source instance you created above.  
 
    ```python
      Example:
