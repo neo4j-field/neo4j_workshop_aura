@@ -92,8 +92,8 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
        }
      ```
 
-### Creating/Cloning new instances
-5. Open the terminal and run the below command
+### Task Execution
+5. Open the terminal and run the below command for any supported task. Please make sure you have updated the required parameters under the task in `config.json`
 
    ```shell
    % python /path_to_folder/main.py <tenant_id> <client Id> <client secret> <task> --output /path_to_folder/csvfile.csv
@@ -103,7 +103,7 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
     - Instance ID for the new database (Eg: "44683a64")
     - Output is written to a csv file when new instances are created. **Please save the file and or copy the credentials** The file will be overwritten when you run the code for the second time.
 
-### Collect the credentials for newly created instances
+### Collect the credentials for newly created/cloned instances
 **If you are running a workshop, you will want readable passwords for printouts.**
 
 6. Open the terminal and run the below command
