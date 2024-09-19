@@ -39,10 +39,15 @@ def generate_passphrase(self, word_list=word_list, min_words=2, max_words=3, sep
     return separator.join(passphrase)
 
 
+def get_id_chunk(x):
+    return x[:3]
+
+
 def create_passwords(filename):
     df = pd.read_csv(filename, dtype=object)
     df['readablechunk'] = df.apply(generate_passphrase, axis=1)
-    df['newpassword'] = df['id'] + '-' + df['readablechunk']
+    df['idchunk'] = df['id'].apply(get_id_chunk)
+    df['newpassword'] = df['idchunk'] + '-' + df['readablechunk']
     nameroot = path.splitext(filename)[0]
     df.to_csv(nameroot + '_readable_pw.csv', index=False)
 
@@ -51,6 +56,9 @@ def update_passwords(filename):
     nameroot = path.splitext(filename)[0]
     df = pd.read_csv(nameroot + '_readable_pw.csv', dtype=object)
 
+    error_log = []
+    f = open("errors.txt", "a")
+
     NEO4J_USERNAME = 'neo4j'
     AURA_DS = True
     for ix, irow in df.iterrows():
@@ -58,16 +66,26 @@ def update_passwords(filename):
         NEO4J_PASSWORD = irow['password']
         NEW_PW = irow['newpassword']
 
-        gds = GraphDataScience(
-            NEO4J_URI,
-            auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
-            aura_ds=AURA_DS)
+        try:
+            gds = GraphDataScience(
+                NEO4J_URI,
+                auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
+                aura_ds=AURA_DS)
 
-        gds.set_database("system")
+            gds.set_database("system")
 
-        gds.run_cypher(f'''
-                    ALTER CURRENT USER SET PASSWORD FROM '{NEO4J_PASSWORD}' TO '{NEW_PW}';
-                   ''')
+            gds.run_cypher(f'''
+                        ALTER CURRENT USER SET PASSWORD FROM '{NEO4J_PASSWORD}' TO '{NEW_PW}';
+                       ''')
+        except:
+            f.write(str({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
+                         'pw': NEO4J_PASSWORD, 'newpw': NEW_PW}))
+            error_log.append({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
+                              'pw': NEO4J_PASSWORD, 'newpw': NEW_PW})
+    f.close()
+    errors = pd.DataFrame.from_dict(error_log)
+    if errors.shape[0]>0:
+        errors.to_csv(nameroot + '_errors.csv', index=False)
 
 
 if __name__ == '__main__':
@@ -81,4 +99,3 @@ if __name__ == '__main__':
     update_start = time.time()
     update_passwords(filename)
     logger.info("Time to update passwords: {}s".format(time.time()-update_start))
-    
