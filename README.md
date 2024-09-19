@@ -117,3 +117,16 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
     - output: csv with _readable_pw suffix added
 
 Use `readable_passwords.py` after all of the instances are up and running to create and update login information. If you run this before the instances are running, you will get an `Unable to retrieve routing information error`
+
+### Generate workshop handouts 
+**If you are running a workshop, you will want printed credentials to hand out for each participant.**
+
+7. Open the terminal and run the below command
+
+   ```shell
+    % python /path_to_folder/generate_handouts.py /path_to_folder/csvfile.csv
+   ```
+    - input: output filename/path from step 6 (csv with _readable_pw suffix added)
+    - output: __pdf__ with _handouts_ prefix added
+
+Print the _handouts_csvfile_readable_pw.pdf_ and pass one page out to each participant at the workshop.
