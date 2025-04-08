@@ -39,11 +39,11 @@ def create_env(filename):
         NEO4J_USERNAME = irow['student_username']
         NEO4J_PASSWORD = irow['student_password']
         AURA_INSTANCEID = irow['id']
-        AZURE_OPENAI_API_KEY = '6CgahPtoFmvzqh2gsBzef795O95YTMrIHg4KqNjYfOjvbC3BTdXmJQQJ99BCACYeBjFXJ3w3AAABACOGtZuK'
-        AZURE_OPENAI_ENDPOINT = 'https://neo4j-nodes-network-atl.openai.azure.com'
-        AURA_API_CLIENT_SECRET = 'tL4NFii2zF2ok8FBTpdZ4CK1Aa9mJnSEFNzxLGYDhIImh5mRtnQUoFAcmuxYj3vN'
-        AURA_API_CLIENT_ID = 'TOPxPblvjsOCIIxJq14saHaoN7n3WwcC'
-        AURA_API_TENANT_ID = 'd8bc257e-9c80-5718-9c4a-bd3568b901de'
+        AZURE_OPENAI_API_KEY = 'xxxx'
+        AZURE_OPENAI_ENDPOINT = 'https://xxxxx.openai.azure.com'
+        AURA_API_CLIENT_SECRET = 'xxxxxx'
+        AURA_API_CLIENT_ID = 'xxxxx'
+        AURA_API_TENANT_ID = 'xxxxx'
         GITHUB_REPO = 'https://github.com/neo4j-field/call-transcripts-automation'
         envFile.write(COMMENT + '\n')
         envFile.write(COMMENT2 + '\n')
