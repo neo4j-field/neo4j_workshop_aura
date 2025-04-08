@@ -6,7 +6,7 @@ import logging
 import pandas as pd
 from os import path
 
-from graphdatascience import GraphDataScience
+from neo4j import GraphDatabase
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level='INFO')
@@ -47,10 +47,10 @@ def create_passwords(filename):
     df = pd.read_csv(filename, dtype=object)
     df['readablechunk'] = df.apply(generate_passphrase, axis=1)
     df['idchunk'] = df['id'].apply(get_id_chunk)
-    df['newpassword'] = df['idchunk'] + '-' + df['readablechunk']
+    df['student_password'] = df['idchunk'] + '-' + df['readablechunk']
+    df['student_username']  = 'student'
     nameroot = path.splitext(filename)[0]
     df.to_csv(nameroot + '_readable_pw.csv', index=False)
-
 
 def update_passwords(filename):
     nameroot = path.splitext(filename)[0]
@@ -58,31 +58,30 @@ def update_passwords(filename):
 
     error_log = []
     f = open("errors.txt", "a")
-
     NEO4J_USERNAME = 'neo4j'
-    AURA_DS = True
+    
+
     for ix, irow in df.iterrows():
         NEO4J_URI = irow['connection_url']
         NEO4J_PASSWORD = irow['password']
-        NEW_PW = irow['newpassword']
-
-        try:
-            gds = GraphDataScience(
-                NEO4J_URI,
-                auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
-                aura_ds=AURA_DS)
-
-            gds.set_database("system")
-
-            gds.run_cypher(f'''
-                        CREATE USER student IF NOT EXISTS SET PLAINTEXT PASSWORD '{NEW_PW}' CHANGE NOT REQUIRED;
-                        grant role admin to student;
-                       ''')
-        except:
-            f.write(str({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
-                         'pw': NEO4J_PASSWORD, 'newpw': NEW_PW}))
-            error_log.append({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
-                              'pw': NEO4J_PASSWORD, 'newpw': NEW_PW})
+        NEW_PW = irow['student_password']
+        AUTH = (NEO4J_USERNAME, NEO4J_PASSWORD)
+        with GraphDatabase.driver(NEO4J_URI, auth=AUTH) as driver:
+            driver.verify_connectivity()
+            print("Connection established.")
+            with driver.session(database="system") as session:
+                with session.begin_transaction() as tx:
+                    try:
+                        QUERY_NEW_USER = f'''CREATE OR REPLACE USER student SET PLAINTEXT PASSWORD '{NEW_PW}' CHANGE NOT REQUIRED SET HOME DATABASE neo4j;'''
+                        QUERY_NEW_ROLE = f'''grant role admin to student;'''
+                        tx.run(QUERY_NEW_USER)
+                        tx.run(QUERY_NEW_ROLE)
+                        tx.commit()
+                    except:
+                        f.write(str({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
+                                    'pw': NEO4J_PASSWORD, 'newpw': NEW_PW}))
+                        error_log.append({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
+                                        'pw': NEO4J_PASSWORD, 'newpw': NEW_PW})
     f.close()
     errors = pd.DataFrame.from_dict(error_log)
     if errors.shape[0]>0:
@@ -94,6 +93,7 @@ if __name__ == '__main__':
     filename = args.filename
 
     pw_start = time.time()
+
     create_passwords(filename)
     logger.info("Time to create passwords: {}s".format(time.time()-pw_start))
 
