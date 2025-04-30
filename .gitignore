@@ -8,7 +8,14 @@ __pycache__/
 
 #
 *.csv
-*.xls*
+*.xlsx
+*.xls
+*.xlsm
+*.xlsb
+*.odp
+*.ods
+*.odt
+
 /student
 
 # Distribution / packaging
