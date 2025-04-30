@@ -1,35 +1,37 @@
 {
     "auth": {
       "endpoint": "https://api.neo4j.io/oauth/token",
-      "client_id": "",
-      "client_secret": "",
+      "client_id": "<aura_client_id>",
+      "client_secret": "<aura_client_secret>",
       "access_token": "",
       "token_ttl": 0.0
     },
     "endpoint": "https://api.neo4j.io/v1/instances",
     "create": {
-      "dbname_prefix": "neo4j_wkshp",
+      "dbname_prefix": "atl-node-network",
       "num_instances": 1,
       "params": {
         "version": "5",
-        "region": "europe-west1",
+        "region": "us-central1",
+        "vector_optimized": "true",
         "memory": "8GB",
-        "type": "enterprise-ds",
+        "type": "enterprise-db",
         "cloud_provider": "gcp"
       }
     },
     "clone":{
-      "dbname_prefix": "neo4j_wkshp",
-      "num_instances": 1,
+      "dbname_prefix": "atl-node-network",
+      "num_instances": 5,
       "params": {
         "version": "5",
-        "region": "europe-west1",
+        "region": "us-central1",
         "memory": "8GB",
-        "type": "enterprise-ds",
+        "type": "enterprise-db",
         "cloud_provider": "gcp",
-        "source_instance_id": "93813d31",
+        "vector_optimized": "true",
+        "source_instance_id": "0be889da",
         "source_snapshot_id": "",
-        "source_snapshot_date": "2024-08-27"
+        "source_snapshot_date": "2025-03-17"
       }
     },
     "snapshots":{
@@ -38,21 +40,21 @@
     },
     "pause": {
       "instance_ids": [],
-      "dbname_prefix":"neo4j_wkshp",
+      "dbname_prefix": "atl-node-network",
       "exclude": []
     },
     "resume": {
       "instance_ids": [],
-      "dbname_prefix":"neo4j_wkshp",
+      "dbname_prefix": "atl-node-network",
       "exclude": []
     },
     "status": {
       "instance_ids": [],
-      "dbname_prefix": "neo4j_wkshp"
+      "dbname_prefix": "atl-node-network"
     },
     "delete": {
       "instance_ids": [],
-      "dbname_prefix": "neo4j_wkshp",
+      "dbname_prefix": "atl-node-network_",
       "exclude": []
     }
 }

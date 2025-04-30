@@ -9,6 +9,18 @@ __pycache__/
 # C extensions
 *.so
 
+#
+*.csv
+*.xlsx
+*.xls
+*.xlsm
+*.xlsb
+*.odp
+*.ods
+*.odt
+
+/student
+
 # Distribution / packaging
 .Python
 build/
