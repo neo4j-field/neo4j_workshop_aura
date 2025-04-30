@@ -126,6 +126,7 @@ Use `readable_passwords.py` after all of the instances are up and running to cre
     - input: output filename/path from step 4
     - output: csv with _readable_pw suffix added 
     - output: student/env files with login information  
+    
 
 Wait for all the instances to be up and running to create and update login information. If you run this before the instances are running, you will get an `Unable to retrieve routing information error`
 
