@@ -1,8 +1,8 @@
 {
     "auth": {
       "endpoint": "https://api.neo4j.io/oauth/token",
-      "client_id": "H2CFyP4yWd4lZXdGqU6IkHhxrKu9FwQQ",
-      "client_secret": "pZQnxbJjlrSIvd9X-hluvpo-UlDbKvXK4qRFABjX1tDdNwbhgU9C9_gUMV4CR3H_",
+      "client_id": "<aura_client_id>",
+      "client_secret": "<aura_client_secret>",
       "access_token": "",
       "token_ttl": 0.0
     },
