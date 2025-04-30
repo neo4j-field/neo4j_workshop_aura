@@ -8,7 +8,7 @@ __pycache__/
 
 #
 *.csv
-*.xsls
+*.xsl*
 /student
 
 # Distribution / packaging
