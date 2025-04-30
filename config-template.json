@@ -1,0 +1,59 @@
+{
+    "auth": {
+      "endpoint": "https://api.neo4j.io/oauth/token",
+      "client_id": "",
+      "client_secret": "",
+      "access_token": "",
+      "token_ttl": 0.0
+    },
+    "endpoint": "https://api.neo4j.io/v1/instances",
+    "create": {
+      "dbname_prefix": "neo4j_wkshp",
+      "num_instances": 1,
+      "params": {
+        "version": "5",
+        "region": "europe-west1",
+        "memory": "8GB",
+        "type": "enterprise-ds",
+        "cloud_provider": "gcp"
+      }
+    },
+    "clone":{
+      "dbname_prefix": "neo4j_wkshp",
+      "num_instances": 1,
+      "params": {
+        "version": "5",
+        "region": "europe-west1",
+        "memory": "8GB",
+        "type": "enterprise-ds",
+        "cloud_provider": "gcp",
+        "source_instance_id": "93813d31",
+        "source_snapshot_id": "",
+        "source_snapshot_date": "2024-08-27"
+      }
+    },
+    "snapshots":{
+        "instance_id": "93813d31",
+        "snapshot_date": "2024-08-27"
+    },
+    "pause": {
+      "instance_ids": [],
+      "dbname_prefix":"neo4j_wkshp",
+      "exclude": []
+    },
+    "resume": {
+      "instance_ids": [],
+      "dbname_prefix":"neo4j_wkshp",
+      "exclude": []
+    },
+    "status": {
+      "instance_ids": [],
+      "dbname_prefix": "neo4j_wkshp"
+    },
+    "delete": {
+      "instance_ids": [],
+      "dbname_prefix": "neo4j_wkshp",
+      "exclude": []
+    }
+}
+  

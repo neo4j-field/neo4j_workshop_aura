@@ -6,7 +6,9 @@ import logging
 import pandas as pd
 from os import path
 
-from graphdatascience import GraphDataScience
+# from graphdatascience import GraphDataScience
+# from langchain_neo4j import Neo4jGraph
+from neo4j import GraphDatabase
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level='INFO')
@@ -60,28 +62,31 @@ def update_passwords(filename):
     f = open("errors.txt", "a")
 
     NEO4J_USERNAME = 'neo4j'
-    AURA_DS = True
+    AURA_DS = False
     for ix, irow in df.iterrows():
         NEO4J_URI = irow['connection_url']
         NEO4J_PASSWORD = irow['password']
         NEW_PW = irow['newpassword']
 
         try:
-            gds = GraphDataScience(
-                NEO4J_URI,
-                auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
-                aura_ds=AURA_DS)
+            # gds = GraphDataScience(
+            #     NEO4J_URI,
+            #     auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
+            #     aura_ds=AURA_DS)
+            # gds.set_database("system")
 
-            gds.set_database("system")
-
-            gds.run_cypher(f'''
+            # gds.run_cypher(f'''
+            #             ALTER CURRENT USER SET PASSWORD FROM '{NEO4J_PASSWORD}' TO '{NEW_PW}';
+            #            ''')
+            graph_db = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
+            graph_db.execute_query(f'''
                         ALTER CURRENT USER SET PASSWORD FROM '{NEO4J_PASSWORD}' TO '{NEW_PW}';
                        ''')
-        except:
+        except Exception as e:
             f.write(str({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
-                         'pw': NEO4J_PASSWORD, 'newpw': NEW_PW}))
+                         'pw': NEO4J_PASSWORD, 'newpw': NEW_PW, 'error': str(e)}) + '\n')
             error_log.append({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
-                              'pw': NEO4J_PASSWORD, 'newpw': NEW_PW})
+                              'pw': NEO4J_PASSWORD, 'newpw': NEW_PW, 'error': str(e)})
     f.close()
     errors = pd.DataFrame.from_dict(error_log)
     if errors.shape[0]>0:
