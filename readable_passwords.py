@@ -6,9 +6,7 @@ import logging
 import pandas as pd
 from os import path
 
-# from graphdatascience import GraphDataScience
-# from langchain_neo4j import Neo4jGraph
-from neo4j import GraphDatabase
+from graphdatascience import GraphDataScience
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level='INFO')
@@ -35,14 +33,14 @@ def cli():
     return parser.parse_args()
 
 
-def generate_passphrase(self, word_list=word_list, min_words=2, max_words=3, separator='-'):
+def generate_passphrase(self, word_list=word_list, min_words=2, max_words=2, separator='-'):
     num_words = random.randint(min_words, max_words)
     passphrase = random.sample(list(word_list), num_words)
     return separator.join(passphrase)
 
 
 def get_id_chunk(x):
-    return x[:3]
+    return x[:4]
 
 
 def create_passwords(filename):
@@ -62,31 +60,29 @@ def update_passwords(filename):
     f = open("errors.txt", "a")
 
     NEO4J_USERNAME = 'neo4j'
-    AURA_DS = False
+    AURA_DS = True
     for ix, irow in df.iterrows():
         NEO4J_URI = irow['connection_url']
         NEO4J_PASSWORD = irow['password']
         NEW_PW = irow['newpassword']
 
         try:
-            # gds = GraphDataScience(
-            #     NEO4J_URI,
-            #     auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
-            #     aura_ds=AURA_DS)
-            # gds.set_database("system")
+            gds = GraphDataScience(
+                NEO4J_URI,
+                auth=(NEO4J_USERNAME, NEO4J_PASSWORD),
+                aura_ds=AURA_DS)
 
-            # gds.run_cypher(f'''
-            #             ALTER CURRENT USER SET PASSWORD FROM '{NEO4J_PASSWORD}' TO '{NEW_PW}';
-            #            ''')
-            graph_db = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
-            graph_db.execute_query(f'''
-                        ALTER CURRENT USER SET PASSWORD FROM '{NEO4J_PASSWORD}' TO '{NEW_PW}';
+            gds.set_database("system")
+
+            gds.run_cypher(f'''
+                        CREATE USER student IF NOT EXISTS SET PLAINTEXT PASSWORD '{NEW_PW}' CHANGE NOT REQUIRED;
+                        grant role admin to student;
                        ''')
-        except Exception as e:
+        except:
             f.write(str({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
-                         'pw': NEO4J_PASSWORD, 'newpw': NEW_PW, 'error': str(e)}) + '\n')
+                         'pw': NEO4J_PASSWORD, 'newpw': NEW_PW}))
             error_log.append({'uri': NEO4J_URI, 'user': NEO4J_USERNAME,
-                              'pw': NEO4J_PASSWORD, 'newpw': NEW_PW, 'error': str(e)})
+                              'pw': NEO4J_PASSWORD, 'newpw': NEW_PW})
     f.close()
     errors = pd.DataFrame.from_dict(error_log)
     if errors.shape[0]>0:
