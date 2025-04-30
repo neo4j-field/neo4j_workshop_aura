@@ -108,7 +108,7 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 ### Collect the credentials for newly created/cloned instances
 **If you are running a workshop, you will want readable passwords for printouts.**
 
-6. Open the terminal and run the below command
+6a. For GDS Instances - Skip if using AuraDB with GDS Sessions
 
    ```shell
     % python /path_to_folder/readable_passwords.py /path_to_folder/csvfile.csv
@@ -118,7 +118,19 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 
 Use `readable_passwords.py` after all of the instances are up and running to create and update login information. If you run this before the instances are running, you will get an `Unable to retrieve routing information error`
 
-### Generate workshop handouts 
+6b. For AuraDB Instances - skip for AuraDS instances
+
+   ```shell
+    % python /path_to_folder/auradb_create_passwords_files.py /path_to_folder/csvfile.csv
+    % python /path_to_folder/auradb_create_env_files.py /path_to_folder/csvfile.csv
+   ```
+    - input: output filename/path from step 4
+    - output: csv with _readable_pw suffix added 
+    - output: student/env files with login information  
+
+Wait for all the instances to be up and running to create and update login information. If you run this before the instances are running, you will get an `Unable to retrieve routing information error`
+
+### Generate workshop handouts for AuraDS instances only - skip for Roadshow or AuraDB
 **If you are running a workshop, you will want printed credentials to hand out for each participant.**
 
 7. Open the terminal and run the below command
