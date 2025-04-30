@@ -30,7 +30,7 @@ linedist = 25
 
 # file contents
 header = "Neo4j Workshop"
-subheader = "Building Smarter GenAI Apps with Knowledge Graphs"
+subheader = "Atlanta Nodes and Network Session"
 line1 = "1. Login at:  https://workspace.neo4j.io/connection/connect"
 line1a = "Your Personal Credentials"
 paragraph1 = '''Connection URL: <b>{0}</b> <BR/> \
