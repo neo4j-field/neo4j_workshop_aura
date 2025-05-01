@@ -85,11 +85,16 @@ def __random_sequences(num, length=7):
     return seqs
 
 def __get_latest_snapshot(instance_id, snapshot_date=None):
+    snapshot_id = None
     snapshots = api.snapshots(instance_id, snapshot_date)
+    # logger.info("Snapshots for instanceId {}: {}".format(instance_id, snapshots))
     for snapshot in snapshots:
         status = snapshot.get('status', '')
-        if status == 'Completed':
+        exportable = snapshot.get('exportable', '')
+        if status == 'Completed' and exportable == 'true':
             snapshot_id =  snapshot['snapshot_id']
+            timestamp =  snapshot['timestamp']
+            logger.info("Using snapshot {} from {}".format(snapshot_id, timestamp))
             break
     return snapshot_id
 
@@ -199,8 +204,18 @@ if __name__ == '__main__':
         instance_id = config['snapshots']['instance_id']
         snapshot_date = config['snapshots'].get('snapshot_date', '')
         snapshots = api.snapshots(instance_id, snapshot_date=snapshot_date)
+        snapshot_status = list()
         for snapshot in snapshots:
-            print(json.dumps(snapshot, indent=2))
+            # print(json.dumps(snapshot, indent=2))
+            snapshot_id = snapshot.get('snapshot_id', '')
+            status = snapshot.get('status', '')
+            exportable = snapshot.get('exportable', '')
+            profile = snapshot.get('profile', '')
+            timestamp = snapshot.get('timestamp', '')
+
+            snapshot_status.append({"snapshot_id": snapshot_id, "status": status, "exportable": exportable, "timestamp": timestamp, "profile": profile})
+        df = pd.DataFrame(snapshot_status, index=None)
+        print(df)
 
     if args.task == 'status':
         instance_ids = collect_instance_ids(config['status'])
