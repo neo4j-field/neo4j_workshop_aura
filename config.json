@@ -1,14 +1,14 @@
 {
     "auth": {
       "endpoint": "https://api.neo4j.io/oauth/token",
-      "client_id": "<aura_client_id>",
-      "client_secret": "<aura_client_secret>",
+      "client_id": "pDC7sb8HKIN7if0DtktdjKlWTawrFeq4",
+      "client_secret": "G-kOc29awNEBdHYY0urRQq-g789T88e8zgNIsuFMk2WPkweBghsQxN7LLV-54Lcp",
       "access_token": "",
       "token_ttl": 0.0
     },
     "endpoint": "https://api.neo4j.io/v1/instances",
     "create": {
-      "dbname_prefix": "neo4j_wkshp",
+      "dbname_prefix": "neo4j_good2great_wkshp",
       "num_instances": 1,
       "params": {
         "version": "5",
@@ -20,7 +20,7 @@
       }
     },
     "clone":{
-      "dbname_prefix": "neo4j_wkshp",
+      "dbname_prefix": "neo4j_good2great_wkshp",
       "num_instances": 2,
       "params": {
         "version": "5",
@@ -38,21 +38,21 @@
     },
     "pause": {
       "instance_ids": [],
-      "dbname_prefix": "neo4j_wkshp",
+      "dbname_prefix": "neo4j_good2great_wkshp",
       "exclude": []
     },
     "resume": {
       "instance_ids": [],
-      "dbname_prefix": "neo4j_wkshp",
+      "dbname_prefix": "neo4j_good2great_wkshp",
       "exclude": []
     },
     "status": {
       "instance_ids": ["110bea0d"],
-      "dbname_prefix": "neo4j_wkshp"
+      "dbname_prefix": "neo4j_good2great_wkshp"
     },
     "delete": {
       "instance_ids": [],
-      "dbname_prefix": "neo4j_wkshp_",
+      "dbname_prefix": "neo4j_good2great_wkshp_",
       "exclude": []
     }
 }
