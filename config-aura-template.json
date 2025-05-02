@@ -1,14 +1,17 @@
 {
     "auth": {
       "endpoint": "https://api.neo4j.io/oauth/token",
-      "client_id": "<aura_client_id>",
-      "client_secret": "<aura_client_secret>",
+      "tenant_id": "",
+      "client_id": "",
+      "client_secret": "",
+      "azure_openai_api_key": "",
+      "azure_openai_api_endpoint": "https://xxxxxxxx.openai.azure.com/",
       "access_token": "",
       "token_ttl": 0.0
     },
     "endpoint": "https://api.neo4j.io/v1/instances",
     "create": {
-      "dbname_prefix": "atl-node-network",
+      "dbname_prefix": "neo4j_g2g_wkshp",
       "num_instances": 1,
       "params": {
         "version": "5",
@@ -20,42 +23,39 @@
       }
     },
     "clone":{
-      "dbname_prefix": "atl-node-network",
-      "num_instances": 5,
+      "dbname_prefix": "neo4j_g2g_wkshp",
+      "num_instances": 2,
       "params": {
         "version": "5",
         "region": "us-central1",
         "memory": "8GB",
-        "type": "enterprise-db",
+        "type": "enterprise",
         "cloud_provider": "gcp",
-        "vector_optimized": "true",
-        "source_instance_id": "0be889da",
-        "source_snapshot_id": "",
-        "source_snapshot_date": "2025-03-17"
+        "source_instance_id": "110bea0d",
+        "source_snapshot_date": "2025-04-29"
       }
     },
     "snapshots":{
-        "instance_id": "93813d31",
-        "snapshot_date": "2024-08-27"
+      "instance_id": "110bea0d",
+      "snapshot_date": "2025-04-29"
     },
     "pause": {
       "instance_ids": [],
-      "dbname_prefix": "atl-node-network",
+      "dbname_prefix": "neo4j_g2g_wkshp",
       "exclude": []
     },
     "resume": {
       "instance_ids": [],
-      "dbname_prefix": "atl-node-network",
+      "dbname_prefix": "neo4j_g2g_wkshp",
       "exclude": []
     },
     "status": {
-      "instance_ids": [],
-      "dbname_prefix": "atl-node-network"
+      "instance_ids": ["110bea0d"],
+      "dbname_prefix": "neo4j_g2g_wkshp"
     },
     "delete": {
       "instance_ids": [],
-      "dbname_prefix": "atl-node-network_",
+      "dbname_prefix": "neo4j_g2g_wkshp_",
       "exclude": []
     }
 }
-  

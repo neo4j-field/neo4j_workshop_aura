@@ -1,3 +1,4 @@
+import json
 import time
 import argparse
 import logging
@@ -5,28 +6,19 @@ import os
 
 import pandas as pd
 
-
-
 logger = logging.getLogger(__name__)
 logging.basicConfig(level='INFO')
-
-
 
 def cli():
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', type=str, help="filename of csv with passwords")
     return parser.parse_args()
 
-
-
-
-def create_env(filename):
+def create_env(filename, kwargs):
     nameroot = os.path.splitext(filename)[0]
     df = pd.read_csv(nameroot + '_readable_pw.csv', dtype=object)
 
     f = open("errors.txt", "a")
-    
-    
 
     for ix, irow in df.iterrows():
         os.makedirs('students/' + irow['idchunk'], exist_ok=True)
@@ -39,22 +31,22 @@ def create_env(filename):
         NEO4J_USERNAME = irow['student_username']
         NEO4J_PASSWORD = irow['student_password']
         AURA_INSTANCEID = irow['id']
-        AZURE_OPENAI_API_KEY = 'xxxx'
-        AZURE_OPENAI_ENDPOINT = 'https://xxxxx.openai.azure.com'
-        AURA_API_CLIENT_SECRET = 'xxxxxx'
-        AURA_API_CLIENT_ID = 'xxxxx'
-        AURA_API_TENANT_ID = 'xxxxx'
+        AZURE_OPENAI_API_KEY = kwargs.get('azure_openai_api_key', 'xxxx')
+        AZURE_OPENAI_ENDPOINT = kwargs.get('azure_openai_api_endpoint', 'https://xxxxx.openai.azure.com')
+        AURA_API_CLIENT_SECRET = kwargs.get('client_secret', 'xxxx')
+        AURA_API_CLIENT_ID = kwargs.get('client_id', 'xxxx')
+        AURA_API_TENANT_ID = kwargs.get('tenant_id', 'xxxx')
         GITHUB_REPO = 'https://github.com/neo4j-field/call-transcripts-automation'
         envFile.write(COMMENT + '\n')
         envFile.write(COMMENT2 + '\n')
         envFile.write('GITHUB_REPO=' + GITHUB_REPO + '\n' )  
+        envFile.write('WORKSPACE_URI=' + WORKSPACE_URI + '\n\n')
         envFile.write('NEO4J_URI=' + NEO4J_URI + '\n')
-        envFile.write('WORKSPACE_URI=' + WORKSPACE_URI + '\n')
         envFile.write('NEO4J_USERNAME=' + NEO4J_USERNAME + '\n')
         envFile.write('NEO4J_PASSWORD=' + NEO4J_PASSWORD + '\n')
-        envFile.write('AURA_INSTANCEID=' + AURA_INSTANCEID + '\n')
+        envFile.write('AURA_INSTANCEID=' + AURA_INSTANCEID + '\n\n')
         envFile.write('AZURE_OPENAI_API_KEY=' + AZURE_OPENAI_API_KEY + '\n')
-        envFile.write('AZURE_OPENAI_ENDPOINT=' + AZURE_OPENAI_ENDPOINT + '\n')
+        envFile.write('AZURE_OPENAI_ENDPOINT=' + AZURE_OPENAI_ENDPOINT + '\n\n')
         envFile.write('AURA_API_CLIENT_SECRET=' + AURA_API_CLIENT_SECRET + '\n')
         envFile.write('AURA_API_CLIENT_ID=' + AURA_API_CLIENT_ID + '\n')    
         envFile.write('AURA_API_TENANT_ID=' + AURA_API_TENANT_ID)   
@@ -62,14 +54,13 @@ def create_env(filename):
         envFile.close()
         os.chdir('../..')
 
-
-
-
 if __name__ == '__main__':
     args = cli()
     filename = args.filename
 
+    with open("config.json", "r") as f:
+        config = json.load(f)
 
     update_start = time.time()
-    create_env(filename)
+    create_env(filename, config['auth'])
     logger.info("Time to update passwords: {}s".format(time.time()-update_start))

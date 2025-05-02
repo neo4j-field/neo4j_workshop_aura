@@ -1,5 +1,8 @@
+.DS_Store
+config.json
 *.csv
 errors.txt
+students/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -5,12 +5,13 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
 2. Create an Aura instance (eg: 2CPU/8GB) and import/restore the database from the dump file
     - AuraDS instances for GDS and GenAI workshops
     - Aura DB instances for Intro to Neo4j and data modeling workshops
-4. Once the instance is up and running, collect the following details
+3. Once the instance is up and running, collect the following details
     - Tenant ID (Eg: "6e748720-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
     - Client ID and Client Secret (for Aura API access)
     - Instance ID for the new database (Eg: "44683a64")
+
 ### Configuration parameters
-4. Modify "config.json" and add required parameters under the respective tasks
+4. Copy the config template to "config.json" and add required parameters under the respective tasks
    - Supported tasks: `create`, `clone`, `pause`, `resume`, `delete`, `status`, `list`, `snapshots`
 
    **Create**
@@ -112,7 +113,7 @@ Aura (or AuraDS) Infra setup for hands-on sessions at Neo4j workshops (Neo4j Int
    ```shell
     % python /path_to_folder/readable_passwords.py /path_to_folder/csvfile.csv
    ```
-    - input: output filename/path from step 4
+    - input: output filename/path from step 5
     - output: csv with _readable_pw suffix added
 
 Use `readable_passwords.py` after all of the instances are up and running to create and update login information. If you run this before the instances are running, you will get an `Unable to retrieve routing information error`
