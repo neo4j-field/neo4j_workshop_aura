@@ -146,16 +146,19 @@ Print the _handouts_csvfile_readable_pw.pdf_ and pass one page out to each parti
 
 # Sample pre-workshop setup
 
-Create the config.json (copy the appropriate template.json)
-Modify config.json accordingly
+- Create the config.json (copy the appropriate template.json)
+- Modify config.json accordingly
+- Create cloned instances
+  ```shell
+  python ./main.py 'd8bc257e-9c80-5718-9c4a-bd3568b901de' 'pDC7sb8HKIN7if0DtktdjKlWTawrFeq4' 'G-kOc29awNEBdHYY0urRQq-g789T88e8zgNIsuFMk2WPkweBghsQxN7LLV-54Lcp' clone
+  ```
+- Once instances are running, change passwords to more readable passwords
+  ```shell
+  python ./auradb_create_password_files.py instances.csv
+  ```
+- Create student aura.txt files, under students folder and sub-folders contain unique student codes to be assigned and emailed to the student.
+  ```shell
+  python ./auradb_create_env_files.py instances
+  ```
 
-```shell
-# Create cloned instances
-python ./main.py 'd8bc257e-9c80-5718-9c4a-bd3568b901de' 'pDC7sb8HKIN7if0DtktdjKlWTawrFeq4' 'G-kOc29awNEBdHYY0urRQq-g789T88e8zgNIsuFMk2WPkweBghsQxN7LLV-54Lcp' clone
-# Once instances are running, change passwords to more readable passwords
-python ./auradb_create_password_files.py instances.csv
-# Create student aura.txt files (under students folder)
-python ./auradb_create_env_files.py instances
-```
-
-Copy the student's folders up to GCS (https://storage.googleapis.com/neo4j-nodes-network-2025)
+- Copy the student's folders up to GCS (https://storage.googleapis.com/neo4j-nodes-network-2025)
