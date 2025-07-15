@@ -61,14 +61,14 @@ def update_passwords(filename):
     NEO4J_USERNAME = 'neo4j'
     
 
-    for ix, irow in df.iterrows():
+    for idx, irow in df.iterrows():
         NEO4J_URI = irow['connection_url']
         NEO4J_PASSWORD = irow['password']
         NEW_PW = irow['student_password']
         AUTH = (NEO4J_USERNAME, NEO4J_PASSWORD)
         with GraphDatabase.driver(NEO4J_URI, auth=AUTH) as driver:
             driver.verify_connectivity()
-            print("Connection established.")
+            print(f"Connection established {idx}")
             with driver.session(database="system") as session:
                 with session.begin_transaction() as tx:
                     try:
